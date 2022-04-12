@@ -36,9 +36,9 @@ updateSettings.addEventListener("click", () => {
     [callCostSetting.value, smsCostSetting.value, warningLevelSetting.value, criticalLevelSetting.value].forEach(item => {
         if((item-"") < 0) oops = true;
     });
-    
+
     if(stCriticalLevel <= stWarningLevel){
-        alert("Critical Level cannot be less than Warning Level");
+        alert("Notice: Your Critical Level is less than Warning Level");
     };
 
     if(oops) alert("Please make sure your inputs in settings are greater than 0 ");
