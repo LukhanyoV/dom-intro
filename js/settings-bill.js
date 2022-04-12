@@ -31,13 +31,26 @@ totalSetttings.innerHTML  = stTotal.toFixed(2);
 
 //add an event listener for when the 'Update settings' button is pressed
 updateSettings.addEventListener("click", () => {
-    stCallCost = (callCostSetting.value !== "") ? callCostSetting.value-"" : stCallCost;
-    stSmsCost = (smsCostSetting.value !== "") ? smsCostSetting.value-"" : stSmsCost;
-    stWarningLevel = (warningLevelSetting.value !== "") ? warningLevelSetting.value-"" : stWarningLevel;
-    stCriticalLevel = (criticalLevelSetting.value !== "") ? criticalLevelSetting.value-"" : stCriticalLevel;
-    alert("Update button pressed");
-    // change the colours
-    billMargin3(stTotal);
+    // check for less than 0
+    let oops = false;
+    [callCostSetting.value, smsCostSetting.value, warningLevelSetting.value, criticalLevelSetting.value].forEach(item => {
+        if((item-"") < 0) oops = true;
+    });
+    
+    if(stCriticalLevel <= stWarningLevel){
+        alert("Critical Level cannot be less than Warning Level");
+    };
+
+    if(oops) alert("Please make sure your inputs in settings are greater than 0 ");
+    if(oops === false){
+        stCallCost = (callCostSetting.value !== "") ? callCostSetting.value-"" : stCallCost;
+        stSmsCost = (smsCostSetting.value !== "") ? smsCostSetting.value-"" : stSmsCost;
+        stWarningLevel = (warningLevelSetting.value !== "") ? warningLevelSetting.value-"" : stWarningLevel;
+        stCriticalLevel = (criticalLevelSetting.value !== "") ? criticalLevelSetting.value-"" : stCriticalLevel;
+        alert("Update button pressed");
+        // change the colours
+        billMargin3(stTotal);
+    }
 });
 
 //add an event listener for when the add button is pressed
