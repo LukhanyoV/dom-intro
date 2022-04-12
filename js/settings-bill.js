@@ -1,18 +1,72 @@
 // get a reference to the sms or call radio buttons
+const radioBtnForSettings = document.querySelectorAll(".billItemTypeWithSettings");
 
 // get refences to all the settings fields
+const smsCostSetting = document.querySelector(".smsCostSetting");
+const callCostSetting = document.querySelector(".callCostSetting");
+const warningLevelSetting = document.querySelector(".warningLevelSetting");
+const criticalLevelSetting = document.querySelector(".criticalLevelSetting");
+
+// references to the totals
+const callTotalSetttings = document.querySelector(".callTotalSettings");
+const smsTotalSetttings = document.querySelector(".smsTotalSettings");
+const totalSetttings = document.querySelector(".totalSettings");
 
 //get a reference to the add button
+const radioAddBtnSetting = document.querySelector(".radioAddBtnSetting");
 
 //get a reference to the 'Update settings' button
+const updateSettings = document.querySelector(".updateSettings");
 
 // create a variables that will keep track of all the settings
+let [stCallCost, stSmsCost, stWarningLevel, stCriticalLevel] = [0, 0, 0, 0];
 
 // create a variables that will keep track of all three totals.
+let [stCallTotal, stSmsTotal, stTotal] = [0, 0, 0];
+
+// reset the fields
+callTotalSetttings.innerHTML = stCallTotal.toFixed(2);
+smsTotalSetttings.innerHTML = stSmsTotal.toFixed(2);
+totalSetttings.innerHTML  = stTotal.toFixed(2);
 
 //add an event listener for when the 'Update settings' button is pressed
+updateSettings.addEventListener("click", () => {
+    stCallCost = (callCostSetting.value !== "") ? callCostSetting.value-"" : stCallCost;
+    stSmsCost = (smsCostSetting.value !== "") ? smsCostSetting.value-"" : stSmsCost;
+    stWarningLevel = (warningLevelSetting.value !== "") ? warningLevelSetting.value-"" : stWarningLevel;
+    stCriticalLevel = (criticalLevelSetting.value !== "") ? criticalLevelSetting.value-"" : stCriticalLevel;
+    alert("Update button pressed");
+    // change the colours
+    billMargin3(stTotal);
+});
 
 //add an event listener for when the add button is pressed
+radioAddBtnSetting.addEventListener("click", () => {
+    radioBtnForSettings.forEach(btn => {
+        if(btn.checked){
+            console.log(btn);
+            // calculations
+            if(btn.value === "call") stCallTotal += stCallCost;
+            if(btn.value === "sms") stSmsTotal += stSmsCost;
+            stTotal = stCallTotal + stSmsTotal;
+
+            // display to user
+            callTotalSetttings.innerHTML = stCallTotal.toFixed(2);
+            smsTotalSetttings.innerHTML = stSmsTotal.toFixed(2);
+            totalSetttings.innerHTML  = stTotal.toFixed(2);
+
+            // change the colours
+            billMargin3(stTotal);
+        }
+    })
+});
+
+const billMargin3 = bill => {
+    bill > stCriticalLevel && totalSetttings.classList.add("danger"); 
+    bill > stWarningLevel && totalSetttings.classList.add("warning");
+    bill <= stWarningLevel && totalSetttings.classList.remove("warning");
+    bill <= stWarningLevel && totalSetttings.classList.remove("danger");
+};
 
 //in the event listener get the value from the billItemTypeRadio radio buttons
 // * add the appropriate value to the call / sms total
