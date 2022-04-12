@@ -46,8 +46,8 @@ radioAddBtnSetting.addEventListener("click", () => {
         if(btn.checked){
             console.log(btn);
             // calculations
-            if(btn.value === "call") stCallTotal += stCallCost;
-            if(btn.value === "sms") stSmsTotal += stSmsCost;
+            if(btn.value === "call" && stTotal < stCriticalLevel) stCallTotal += stCallCost;
+            if(btn.value === "sms" && stTotal < stCriticalLevel) stSmsTotal += stSmsCost;
             stTotal = stCallTotal + stSmsTotal;
 
             // display to user
@@ -66,6 +66,7 @@ const billMargin3 = bill => {
     bill > stWarningLevel && totalSetttings.classList.add("warning");
     bill <= stWarningLevel && totalSetttings.classList.remove("warning");
     bill <= stWarningLevel && totalSetttings.classList.remove("danger");
+    bill <= stCriticalLevel && totalSetttings.classList.remove("danger");
 };
 
 //in the event listener get the value from the billItemTypeRadio radio buttons
