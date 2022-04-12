@@ -27,8 +27,8 @@ radioAddBtn.addEventListener("click", () => radioCalcBill());
 const radioCalcBill = () => {
     radioBtn.forEach(btn => {
         if(btn.checked){
-            if(btn.value === "sms") radioSmsTotal += 0.75;
-            if(btn.value === "call") radioCallTotal += 2.75;
+            if(btn.value.toLowerCase().trim() === "sms") radioSmsTotal += 0.75;
+            if(btn.value.toLowerCase().trim() === "call") radioCallTotal += 2.75;
             radioTotal = radioSmsTotal + radioCallTotal;
             callTotalTwo.innerHTML = radioCallTotal.toFixed(2);
             smsTotalTwo.innerHTML = radioSmsTotal.toFixed(2);

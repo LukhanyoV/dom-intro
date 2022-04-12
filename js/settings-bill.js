@@ -46,8 +46,8 @@ radioAddBtnSetting.addEventListener("click", () => {
         if(btn.checked){
             console.log(btn);
             // calculations
-            if(btn.value === "call" && stTotal < stCriticalLevel) stCallTotal += stCallCost;
-            if(btn.value === "sms" && stTotal < stCriticalLevel) stSmsTotal += stSmsCost;
+            if(btn.value.toLowerCase().trim() === "call" && stTotal < stCriticalLevel) stCallTotal += stCallCost;
+            if(btn.value.toLowerCase().trim() === "sms" && stTotal < stCriticalLevel) stSmsTotal += stSmsCost;
             stTotal = stCallTotal + stSmsTotal;
 
             // display to user

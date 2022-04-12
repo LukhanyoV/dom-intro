@@ -15,7 +15,7 @@ const billString = document.querySelector(".billString");
 //  * once done looping over all the entries - display the total onto the screen in the billTotal element
 const calculateBtnClicked = () => {
     // make sure to remove all the spaces before I split by comma
-    let bills = billString.value.replace(/\s/g, '').split(',');
+    let bills = billString.value.toLowerCase().replace(/\s/g, '').split(',');
     // for every bill in bills add their values to a new array
     // then add all the values in that array and store them in total variable
     let total = bills.map(bill => bill === "call" ? 2.75 : bill === "sms" ? 0.75 : 0).reduce((sum, c) => sum + c,0);

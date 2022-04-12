@@ -24,8 +24,8 @@ totalOne.innerHTML = total.toFixed(2);
 
 addToBillBtn.addEventListener("click", () => {
     // increase the values
-    if(billTypeText.value === "sms") smsTotal += 0.75;
-    if(billTypeText.value === "call") callTotal += 2.75;
+    if(billTypeText.value.toLowerCase().trim() === "sms") smsTotal += 0.75;
+    if(billTypeText.value.toLowerCase().trim() === "call") callTotal += 2.75;
     total = callTotal + smsTotal;
 
     // display the values
