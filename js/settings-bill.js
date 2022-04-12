@@ -37,7 +37,7 @@ updateSettings.addEventListener("click", () => {
         if((item-"") < 0) oops = true;
     });
 
-    if(stCriticalLevel <= stWarningLevel){
+    if(criticalLevelSetting.value <= warningLevelSetting.value){
         alert("Notice: Your Critical Level is less than Warning Level");
     };
 
@@ -47,7 +47,6 @@ updateSettings.addEventListener("click", () => {
         stSmsCost = (smsCostSetting.value !== "") ? smsCostSetting.value-"" : stSmsCost;
         stWarningLevel = (warningLevelSetting.value !== "") ? warningLevelSetting.value-"" : stWarningLevel;
         stCriticalLevel = (criticalLevelSetting.value !== "") ? criticalLevelSetting.value-"" : stCriticalLevel;
-        alert("Update button pressed");
         // change the colours
         billMargin3(stTotal);
     }
