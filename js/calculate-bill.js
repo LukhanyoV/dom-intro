@@ -30,8 +30,8 @@ calculateBtn.addEventListener("click", () => calculateBtnClicked());
 
 // change the color based on the value of the bill
 const billMargin = bill => {
-    bill > 30 && billTotal.classList.add("danger"); 
-    bill > 20 && billTotal.classList.add("warning");
-    bill <= 20 && billTotal.classList.remove("warning");
-    bill <= 20 && billTotal.classList.remove("danger");
+    bill >= 30 && billTotal.classList.add("danger"); 
+    bill >= 20 && billTotal.classList.add("warning");
+    bill < 20 && billTotal.classList.remove("warning");
+    bill < 20 && billTotal.classList.remove("danger");
 };

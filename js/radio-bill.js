@@ -41,8 +41,8 @@ const radioCalcBill = () => {
 };
 
 const radioBillMargin = bill => {
-    bill > 50 && totalTwo.classList.add("danger"); 
-    bill > 30 && totalTwo.classList.add("warning");
-    bill <= 30 && totalTwo.classList.remove("warning");
-    bill <= 30 && totalTwo.classList.remove("danger");
+    bill >= 50 && totalTwo.classList.add("danger"); 
+    bill >= 30 && totalTwo.classList.add("warning");
+    bill < 30 && totalTwo.classList.remove("warning");
+    bill < 30 && totalTwo.classList.remove("danger");
 }

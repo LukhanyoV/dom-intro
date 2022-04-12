@@ -37,11 +37,14 @@ updateSettings.addEventListener("click", () => {
         if((item-"") < 0) oops = true;
     });
 
-    if(criticalLevelSetting.value <= warningLevelSetting.value){
-        alert("Notice: Your Critical Level is less than Warning Level");
+    if(oops === true){
+        alert("Please make sure your inputs in settings are greater than 0 ");
+    };
+    
+    if(criticalLevelSetting.value <= warningLevelSetting.value && (criticalLevelSetting.value + warningLevelSetting.value) > 0){
+        alert("Notice: Your Critical Level is less/equal than Warning Level");
     };
 
-    if(oops) alert("Please make sure your inputs in settings are greater than 0 ");
     if(oops === false){
         stCallCost = (callCostSetting.value !== "") ? callCostSetting.value-"" : stCallCost;
         stSmsCost = (smsCostSetting.value !== "") ? smsCostSetting.value-"" : stSmsCost;
@@ -74,11 +77,11 @@ radioAddBtnSetting.addEventListener("click", () => {
 });
 
 const billMargin3 = bill => {
-    bill > stCriticalLevel && totalSetttings.classList.add("danger"); 
-    bill > stWarningLevel && totalSetttings.classList.add("warning");
-    bill <= stWarningLevel && totalSetttings.classList.remove("warning");
-    bill <= stWarningLevel && totalSetttings.classList.remove("danger");
-    bill <= stCriticalLevel && totalSetttings.classList.remove("danger");
+    bill >= stCriticalLevel && totalSetttings.classList.add("danger"); 
+    bill >= stWarningLevel && totalSetttings.classList.add("warning");
+    bill < stWarningLevel && totalSetttings.classList.remove("warning");
+    bill < stWarningLevel && totalSetttings.classList.remove("danger");
+    bill < stCriticalLevel && totalSetttings.classList.remove("danger");
 };
 
 //in the event listener get the value from the billItemTypeRadio radio buttons
