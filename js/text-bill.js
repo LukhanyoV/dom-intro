@@ -15,18 +15,13 @@ callTotalOne.innerHTML = callTotal.toFixed(2);
 smsTotalOne.innerHTML = smsTotal.toFixed(2);
 totalOne.innerHTML = total.toFixed(2);
 
-
-//add an event listener for when the add button is pressed
-//in the event listener check if the value in the bill type textbox is 'sms' or 'call'
-// * add the appropriate value to the running total
-// * add nothing for invalid values that is not 'call' or 'sms'.
-// * display the latest total on the screen
+// 
 
 addToBillBtn.addEventListener("click", () => {
     // increase the values
-    if(billTypeText.value.toLowerCase().trim() === "sms") smsTotal += 0.75;
-    if(billTypeText.value.toLowerCase().trim() === "call") callTotal += 2.75;
-    total = callTotal + smsTotal;
+    // if(billTypeText.value.toLowerCase().trim() === "sms") smsTotal += 0.75;
+    // if(billTypeText.value.toLowerCase().trim() === "call") callTotal += 2.75;
+    // total = callTotal + smsTotal;
 
     // display the values
     callTotalOne.innerHTML = callTotal.toFixed(2);
