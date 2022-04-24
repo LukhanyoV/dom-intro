@@ -6,11 +6,12 @@ const billTotal = document.querySelector(".billTotal");
 
 //get a reference to the billString
 const billString = document.querySelector(".billString");
-const calcu = playstation();
 
 const calculateBtnClicked = () => {
-    var bill = billString.value;    
-    let roundedTotal = calcu.calculateBill(bill)
+    var billType = billString.value;    
+    let bills = billType.toLowerCase().replace(/\s/g, '').split(',');
+    let total = bills.map(bill => bill === "call" ? 2.75 : bill === "sms" ? 0.75 : 0).reduce((sum, c) => sum + c,0);
+    let roundedTotal = total.toFixed(2); 
     billTotal.innerText = roundedTotal;
     // decide the color on submit
     billMargin(roundedTotal);

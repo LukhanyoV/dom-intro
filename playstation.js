@@ -1,24 +1,58 @@
-function playstation() {
+const BillSettings = _ => {
+    
+    // initialize me
+    let callCost = 0;
+    let smsCost = 0;
+    let warningLevel = 0;
+    let criticalLevel = 0;
 
-    const calculateBill = (billType) => {
+    // intialize totals
+    let callCostTotal = 0;
+    let smsCostTotal = 0;
+    let totalCost = 0;
 
-        let bills = billType.toLowerCase().replace(/\s/g, '').split(',');
-        // for every bill in bills add their values to a new array
-        // then add all the values in that array and store them in total variable
-        let total = bills.map(bill => bill === "call" ? 2.75 : bill === "sms" ? 0.75 : 0).reduce((sum, c) => sum + c,0);
-        let roundedTotal = total.toFixed(2);    
-        return roundedTotal
-    }
+    // set me
+    const setCallCost = n => callCost = n;
+    const setSmsCost = n => smsCost = n;
+    const setWarningLevel = n => warningLevel = n;
+    const setCriticalLevel = n => criticalLevel = n;
 
+    // get me
+    const getCallCost = _ => callCost;
+    const getSmsCost = _ => smsCost;
+    const getWarningLevel = _ => warningLevel;
+    const getCriticalLevel = _ => criticalLevel;
 
-    const textBill = (x) => {
-        if(x.toLowerCase().trim() === "sms") smsTotal += 0.75;
-        if(x.toLowerCase().trim() === "call") callTotal += 2.75;
-    }
+    // use me
+    const makeCall = _ => getCriticalLevel() > getTotalCost() ? callCostTotal += getCallCost() : callCostTotal += 0;
+    const makeSms = _ => getCriticalLevel() > getTotalCost() ? smsCostTotal += getSmsCost() : smsCostTotal += 0;
+
+    // show me
+    const getCallCostTotal = _ => callCostTotal;
+    const getSmsCostTotal = _ => smsCostTotal;
+    const getTotalCost = _ => totalCost = getSmsCostTotal() + getCallCostTotal();
+
+    // color me
+    const classTotal = _ => getTotalCost() >= getCriticalLevel() ? "critical" : getTotalCost() >= getWarningLevel() && "warning";
 
     return {
-        calculateBill,
-        textBill
+        setCallCost,
+        setSmsCost,
+        setWarningLevel,
+        setCriticalLevel,
+
+        getCallCost,
+        getSmsCost,
+        getWarningLevel,
+        getCriticalLevel,
+
+        makeCall,
+        makeSms,
+
+        getCallCostTotal,
+        getSmsCostTotal,
+        getTotalCost,
+
+        classTotal
     }
 }
-
