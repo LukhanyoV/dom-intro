@@ -18,16 +18,13 @@ const radioAddBtnSetting = document.querySelector(".radioAddBtnSetting");
 //get a reference to the 'Update settings' button
 const updateSettings = document.querySelector(".updateSettings");
 
-// create a variables that will keep track of all the settings
-let [stCallCost, stSmsCost, stWarningLevel, stCriticalLevel] = [0, 0, 0, 0];
-
-// create a variables that will keep track of all three totals.
-let [stCallTotal, stSmsTotal, stTotal] = [0, 0, 0];
+// instancce of my factory function
+const billy = BillSettings();
 
 // reset the fields
-callTotalSetttings.innerHTML = stCallTotal.toFixed(2);
-smsTotalSetttings.innerHTML = stSmsTotal.toFixed(2);
-totalSetttings.innerHTML  = stTotal.toFixed(2);
+callTotalSetttings.innerHTML = billy.getTotalCost().toFixed(2);
+smsTotalSetttings.innerHTML = billy.getSmsCostTotal().toFixed(2);
+totalSetttings.innerHTML  = billy.getCallCostTotal().toFixed(2);
 
 //add an event listener for when the 'Update settings' button is pressed
 updateSettings.addEventListener("click", () => {
@@ -46,12 +43,12 @@ updateSettings.addEventListener("click", () => {
     };
 
     if(oops === false){
-        stCallCost = (callCostSetting.value !== "") ? callCostSetting.value-"" : stCallCost;
-        stSmsCost = (smsCostSetting.value !== "") ? smsCostSetting.value-"" : stSmsCost;
-        stWarningLevel = (warningLevelSetting.value !== "") ? warningLevelSetting.value-"" : stWarningLevel;
-        stCriticalLevel = (criticalLevelSetting.value !== "") ? criticalLevelSetting.value-"" : stCriticalLevel;
+        billy.setCallCost(callCostSetting.value-"");
+        billy.setSmsCost(smsCostSetting.value-"");
+        billy.setWarningLevel(warningLevelSetting.value-"");
+        billy.setCriticalLevel(criticalLevelSetting.value-"");
         // change the colours
-        billMargin3(stTotal);
+        billMargin3(billy.getTotalCost());
     }
 });
 
@@ -59,30 +56,29 @@ updateSettings.addEventListener("click", () => {
 radioAddBtnSetting.addEventListener("click", () => {
     radioBtnForSettings.forEach(btn => {
         if(btn.checked){
-            console.log(btn);
             // calculations
-            if(btn.value.toLowerCase().trim() === "call" && stTotal < stCriticalLevel) stCallTotal += stCallCost;
-            if(btn.value.toLowerCase().trim() === "sms" && stTotal < stCriticalLevel) stSmsTotal += stSmsCost;
-            stTotal = stCallTotal + stSmsTotal;
+            if(btn.value.toLowerCase().trim() === "call") billy.makeCall();
+            if(btn.value.toLowerCase().trim() === "sms") billy.makeSms();
 
             // display to user
-            callTotalSetttings.innerHTML = stCallTotal.toFixed(2);
-            smsTotalSetttings.innerHTML = stSmsTotal.toFixed(2);
-            totalSetttings.innerHTML  = stTotal.toFixed(2);
+            callTotalSetttings.innerHTML = billy.getCallCostTotal().toFixed(2);
+            smsTotalSetttings.innerHTML = billy.getSmsCostTotal().toFixed(2);
+            totalSetttings.innerHTML  = billy.getTotalCost().toFixed(2);
 
             // change the colours
-            billMargin3(stTotal);
+            billMargin3(billy.getTotalCost());
         }
     })
 });
 
 const billMargin3 = bill => {
-    bill >= stCriticalLevel && totalSetttings.classList.add("danger"); 
-    bill >= stWarningLevel && totalSetttings.classList.add("warning");
-    bill < stWarningLevel && totalSetttings.classList.remove("warning");
-    bill < stWarningLevel && totalSetttings.classList.remove("danger");
-    bill < stCriticalLevel && totalSetttings.classList.remove("danger");
+    bill >= billy.getCriticalLevel() && totalSetttings.classList.add("danger"); 
+    bill >= billy.getWarningLevel() && totalSetttings.classList.add("warning");
+    bill < billy.getWarningLevel() && totalSetttings.classList.remove("warning");
+    bill < billy.getWarningLevel() && totalSetttings.classList.remove("danger");
+    bill < billy.getCriticalLevel() && totalSetttings.classList.remove("danger");
 };
+
 
 //in the event listener get the value from the billItemTypeRadio radio buttons
 // * add the appropriate value to the call / sms total
